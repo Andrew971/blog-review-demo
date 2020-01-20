@@ -56,9 +56,9 @@ Note: only E2E testing is currectly available.
 
 - [X] ~~Backend Skeleton~~
   - [X] ~~ Mock database structure~~
-  - [] ~~ HTTP Endpoint~~
-  - [ ] ~~Integration of database ~~
+  - [x] ~~ HTTP Endpoint (Blog and Comment endpoint) ~~
+  - [x] ~~Integration of database ~~
   - [] ~~ E2E Test integration (mocha, chai)~~
-  - [] ~~ Documentation ( Swagger UI )~~
+  - [x] ~~ Documentation ( Swagger UI, added simple Api Doc at ./apiDoc.yaml )~~
   - [ ] ~~Integration of database ~~
   - [ ] ~- Types and Typescript integration ~~
