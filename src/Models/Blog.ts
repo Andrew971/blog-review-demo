@@ -1,4 +1,4 @@
-import Collection from '../utils/dataStore/backup.js'
+import Collection from '../utils/dataStore'
 
 const schema = {
   Key: {
@@ -14,9 +14,8 @@ const schema = {
   Item: {
     Id: 'S',
     Author: 'S',
-    Body: 'S',
+    Body: 'S'
   }
 }
-
 
 export default new Collection('Blog', schema)

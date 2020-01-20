@@ -1,4 +1,4 @@
-import Collection from '../utils/dataStore/backup.js'
+import Collection, {IEvent} from '../utils/dataStore'
 import Blog from './Blog'
 
 const schema = {
@@ -19,7 +19,7 @@ const schema = {
   }
 }
 
-function streamEventHandler(event) {
+function streamEventHandler(event: IEvent) {
   if (event.eventName === 'INSERT') {
 
     // blog.update(param)
