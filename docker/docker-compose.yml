@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+
+  api:
+    user: "node"
+    image: ea-blog-review-api:latest
+    container_name: ea-blog-review.api
+    networks:
+      - ea-blog-review
+    
+
+networks:
+  ea-blog-review:
