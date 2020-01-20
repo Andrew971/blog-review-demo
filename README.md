@@ -60,5 +60,3 @@ Note: only E2E testing is currectly available.
   - [x] ~~Integration of database ~~
   - [] ~~ E2E Test integration (mocha, chai)~~
   - [x] ~~ Documentation ( Swagger UI, added simple Api Doc at ./apiDoc.yaml )~~
-  - [ ] ~~Integration of database ~~
-  - [ ] ~- Types and Typescript integration ~~
