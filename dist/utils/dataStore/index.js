@@ -48,7 +48,8 @@ class Collection {
         const initializedStore = {
             default: new Map()
         };
-        for (const IndexName of Object.keys(this.schema.Index)) {
+        const indexObject = this.schema.Index || {};
+        for (const IndexName of Object.keys(indexObject)) {
             initializedStore[IndexName] = new Map();
         }
         this.store = initializedStore;

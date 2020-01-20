@@ -9,7 +9,7 @@ import uuid from 'uuid/v4'
 const router = Router();
 
 /******************************************************************************
- *                      Get All blog - "GET /api/blog/all"
+ *                      Get  blog  by Id- "GET /api/blog/blogById"
  ******************************************************************************/
 
 router.get('/blogById', async (req: Request, res: Response) => {
@@ -32,6 +32,10 @@ router.get('/blogById', async (req: Request, res: Response) => {
     }
 })
 
+/******************************************************************************
+ *                      Get  blog  by Author- "GET /api/blog/blogByAuthor"
+ ******************************************************************************/
+ 
 router.get('/blogByAuthor', async (req: Request, res: Response) => {
     try {
       const { hashKey, sortKey } = req.query
@@ -54,7 +58,7 @@ router.get('/blogByAuthor', async (req: Request, res: Response) => {
 });
 
 /******************************************************************************
- *                       Add One - "POST /api/blog/add"
+ *                       Add One - "POST /api/blog/newBlog"
  ******************************************************************************/
 
 router.post('/newBlog', async (req: Request, res: Response) => {
@@ -86,7 +90,7 @@ router.post('/newBlog', async (req: Request, res: Response) => {
 });
 
 // /******************************************************************************
-//  *                       Update - "PUT /api/blog/update"
+//  *                       Update - "PUT /api/blog/updateBlogById"
 //  ******************************************************************************/
 
 router.put('/updateBlogById', async (req: Request, res: Response) => {
@@ -116,7 +120,7 @@ router.put('/updateBlogById', async (req: Request, res: Response) => {
         }
       }
 
-      const result = await Blog.putItem(params)
+      const result = await Blog.update(params)
 
       return res.status(OK).json(result);
     } catch (err) {
@@ -128,7 +132,7 @@ router.put('/updateBlogById', async (req: Request, res: Response) => {
 });
 
 // /******************************************************************************
-//  *                    Delete - "DELETE /api/blog/delete/:id"
+//  *                    Delete - "POST /api/blog/deleteBlog"
 //  ******************************************************************************/
 
 router.post('/deleteBlog', async (req: Request, res: Response) => {

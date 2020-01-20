@@ -83,7 +83,7 @@ router.put('/updateBlogById', async (req, res) => {
                 Detail: rest
             }
         };
-        const result = await Blog_1.default.putItem(params);
+        const result = await Blog_1.default.update(params);
         return res.status(http_status_codes_1.OK).json(result);
     }
     catch (err) {

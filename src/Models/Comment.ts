@@ -3,31 +3,46 @@ import Blog from './Blog'
 
 const schema = {
   Key: {
-    HashKey: 'BlogPostId',
+    HashKey: 'BlogId',
     SortKey: 'Id'
-  },
-  Index: {
-    Id_Index: {
-      HashKey: 'Id'
-    }
   },
   Item: {
     Id: 'S',
     Author: 'S',
     Body: 'S',
-    BlogPostId: 'S'
+    BlogId: 'S'
   }
 }
 
-function streamEventHandler(event: IEvent) {
+async function streamEventHandler(event: IEvent) {
+  
   if (event.eventName === 'INSERT') {
-
+    const { OldImage, NewImage } = event.body
     // blog.update(param)
     // console.log('stream', event)
+    const queryParam = {
+      Where: {
+        HashKey: NewImage.BlogId
+      }
+    }
 
+    const queryResult = await Blog.query(queryParam)
+    const blogItem = queryResult.Item[0]
+
+    const params = {
+      Key: {
+        HashKey: blogItem.Id,
+        SortKey: blogItem.Title
+      },
+      Item: {
+        Replies: blogItem.Replies ? blogItem.Replies + 1 : 1
+      }
+    }
+
+    const result = await Blog.update(params)
+    return result
   }
 
-  // console.log('stream', event.eventName)
 
 }
 

@@ -67,7 +67,7 @@ interface ISchema {
     HashKey: string | number
     SortKey?: string | number
   }
-  Index: {
+  Index?: {
     [key: string]: {
       HashKey: string | number
       SortKey?: string | number
@@ -109,7 +109,8 @@ class Collection {
     const initializedStore: IStore = {
       default: new Map()
     }
-    for (const IndexName of Object.keys(this.schema!.Index)) {
+    const indexObject = this.schema!.Index! || {}
+    for (const IndexName of Object.keys(indexObject)) {
       initializedStore[IndexName] = new Map()
     }
     this.store = initializedStore
@@ -253,7 +254,7 @@ class Collection {
       const IndexName = params.Index ? params.Index : 'default'
 
       const keyDefenition = params.Index
-        ? this.schema!.Index[IndexName]
+        ? this.schema!.Index![IndexName]
         : this.collectionKey
 
       const { Where } = params
@@ -361,8 +362,8 @@ class Collection {
       if (!NewImage || Object.keys(NewImage).length === 0) {
         throw new Error('Invalid insert callback. Missing insert event payload')
       }
-      for (const IndexName of Object.keys(this.schema!.Index)) {
-        const key = NewImage[this.schema!.Index[IndexName].HashKey]
+      for (const IndexName of Object.keys(this.schema!.Index!)) {
+        const key = NewImage[this.schema!.Index![IndexName].HashKey]
         const oldIndexImage = this.store[IndexName].get(key) || []
 
         this.store[IndexName].set(key, [
@@ -394,8 +395,8 @@ class Collection {
         throw new Error('Invalid update callBack. Missing update event payload')
       }
 
-      for (const IndexName of Object.keys(this.schema!.Index)) {
-        const key = NewImage[this.schema!.Index[IndexName].HashKey]
+      for (const IndexName of Object.keys(this.schema!.Index!)) {
+        const key = NewImage[this.schema!.Index![IndexName].HashKey]
         const data = this.store[IndexName].get(key) || []
         const updatedImage = JSON.parse(JSON.stringify(data))
 
@@ -424,8 +425,8 @@ class Collection {
         throw new Error('Invalid update callBack. Missing update event payload')
       }
       for (const image of OldImage) {
-        for (const IndexName of Object.keys(this.schema!.Index)) {
-          const key = image[this.schema!.Index[IndexName].HashKey]
+        for (const IndexName of Object.keys(this.schema!.Index!)) {
+          const key = image[this.schema!.Index![IndexName].HashKey]
           const data = this.store[IndexName].get(key) || []
           const updatedImage = JSON.parse(JSON.stringify(data))
 
@@ -595,4 +596,3 @@ function isObjectEmpty(object: any) {
 }
 
 export default Collection
-
